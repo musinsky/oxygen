@@ -1,0 +1,74 @@
+
+                   O16 + p    DST
+
+ 0  nw  - integer number of data words  
+ 1  Real  10000*Nroll + Nframe*10
+ 2  Real  100*ncharged + nneg*10 + secintflag
+ 3  Real  x vertex
+ 4  Real  y vertex
+ 5  Real  z vertex
+ 
+           Track region
+
+ 6  Real Lab mom mod p GeV/c   -----------|
+ 7  Real Lab dip angle radians            |  ntracks times
+ 8  Real Lab azimuthal angle radians      |
+ 9  Real sigma Lab mom mod p GeV/c        |
+10  Real Flag*1000 + length               |
+         length = measured length in cm --|
+
+
+  Footnotes:
+
+       nw = 5 + 5*ntracks
+
+       ntracks = primary + nsecondaries = 1 + ncharged
+
+       straightflag = seconadry interaction(s) or straight tracks
+                      Probably useless not in all cases set!
+                      Use the Flags in the track region.
+
+       For the primary (beam) track dip = dip - pi
+
+       Flags in the track region:
+         
+         1    unambigously identified PROTON
+         2    fragment with Z=2
+         3    fragment with Z=3
+         4    fragment with Z=4
+         5    fragment with Z=5
+         6    fragment with Z=6
+         7    fragment with Z=7
+         8    fragment with Z=8
+         9    negative PION
+        10    positive PION
+        11    unidentified Z=+1 track
+         
+
+   Additional  criteria to identify tracks:
+
+        1.75 < P < 4.75 GeV/c   PROTON
+        4.75 < P < 7.8  GeV/c   DEUTERON
+        7.80 < P                TRITON
+
+               P < 10.8 GeV/c   He3
+       10.8  < P                He4
+
+
+        
+
+     P=1000. or Sigma(P)=0.0  length > 0  probably straight track, no momentum 
+                                           measurement possible.
+     P=0., dip=0., azimuth=0. length =0.
+
+------------------------------------------------------------------------------
+ April 6, 2004
+The old files *.bin (transported directly from Dubna) deleted.
+ 
+The new *.bin files (held in /home/martinov/O16DATA/PEREKOD/DST2ASCII, 
+farma.science.upjs.sk) produced from /home/martinov/O16DATA/NOARCHIV/*.DST 
+by /home/martinov/O16DATA/PEREKOD/DST2ASCII/DST2FOR.C are to be used. 
+The /home/martinov/O16DATA/NOARCHIV/*.DST were sent to me by Kosim Olimov, 
+on February 26, 2004.  
+For consistency the new *.bin files on April 6, 2004 moved to:
+/home/martinov/O16DATA, farma.science.upjs.sk.
