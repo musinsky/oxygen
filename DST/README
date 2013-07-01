@@ -1,0 +1,182 @@
+Jan Musinsky notes (Jul 2013)
+
+*.DST          finalne DST subory, ktore poslal Olimov Urbanovi 26.02.2004
+
+dst2read.C      cita a vypisuje kazdu hodnotu z bin DST suboru
+dst2bin.C       prevadza subor bin DST do bin
+dst2convert.C   prevadza bin DST subory do ascci (alebo bin) suborov
+dst2root.C      prevadza bin DST subory do root (tree) suborov
+dst2for.C       prevadza bin DST subory do FORTRAN binary (fbin) suborov
+
+redact.f        opravy na hlbynne uhly a pod. z FORTRAN binary (fbin) suborov
+
+dst2for.C => redact => oxygen_DST.asc
+
+------------------------------------------------------------
+
+Jozef Urban notes (April 6, 2004)
+The old files *.bin (transported directly from Dubna) deleted.
+
+The new *.bin files (held in /home/martinov/O16DATA/PEREKOD/DST2ASCII, 
+farma.science.upjs.sk) produced from /home/martinov/O16DATA/NOARCHIV/*.DST 
+by /home/martinov/O16DATA/PEREKOD/DST2ASCII/DST2FOR.C are to be used. 
+The /home/martinov/O16DATA/NOARCHIV/*.DST were sent to me by Kosim Olimov, 
+on February 26, 2004.  
+For consistency the new *.bin files on April 6, 2004 moved to:
+/home/martinov/O16DATA, farma.science.upjs.sk.
+
+------------------------------------------------------------
+
+Jozef Urban notes
+                   O16 + p    DST
+
+ 0  nw  - integer number of data words 
+ 1  Real  10000*Nroll + Nframe*10
+ 2  Real  100*ncharged + nneg*10 + secintflag
+ 3  Real  x vertex
+ 4  Real  y vertex
+ 5  Real  z vertex
+
+           Track region
+
+ 6  Real Lab mom mod p GeV/c   -----------|
+ 7  Real Lab dip angle radians            |  ntracks times
+ 8  Real Lab azimuthal angle radians      |
+ 9  Real sigma Lab mom mod p GeV/c        |
+10  Real Flag*1000 + length               |
+         length = measured length in cm --|
+
+
+  Footnotes:
+
+       nw = 5 + 5*ntracks
+
+       ntracks = primary + nsecondaries = 1 + ncharged
+
+       straightflag = seconadry interaction(s) or straight tracks
+                      Probably useless not in all cases set!
+                      Use the Flags in the track region.
+
+       For the primary (beam) track dip = dip - pi
+
+       Flags in the track region:
+
+         1    unambigously identified PROTON
+         2    fragment with Z=2
+         3    fragment with Z=3
+         4    fragment with Z=4
+         5    fragment with Z=5
+         6    fragment with Z=6
+         7    fragment with Z=7
+         8    fragment with Z=8
+         9    negative PION
+        10    positive PION
+        11    unidentified Z=+1 track
+
+
+   Additional  criteria to identify tracks:
+
+        1.75 < P < 4.75 GeV/c   PROTON
+        4.75 < P < 7.8  GeV/c   DEUTERON
+        7.80 < P                TRITON
+
+               P < 10.8 GeV/c   He3
+       10.8  < P                He4
+
+
+
+     P=1000. or Sigma(P)=0.0  length > 0  probably straight track, no momentum
+                                          measurement possible.
+     P=0., dip=0., azimuth=0. length =0.
+
+------------------------------------------------------------
+
+   О Мини-DST 16Op-взаимодействий
+   Читается как read(1,end=77) nw,(b(i),i=1,nw)
+   где nw-количество слов.
+   Шапка события (5-слов):
+   b(1)-Nпл*10000+Nкадра*10+Nфлаг
+   b(2)-Топология =Nch*100+Nмин
+   b(3)- X0
+   b(4)-Y0
+   b(5)-Z0
+   характеристики первичного пучка (5-слов):
+   b(6)-P0 (ГэВ/с)
+   b(7)-alpha0 (глубинный угол, в радианах)
+   b(8)-betta0 (широтный угол в радианах)
+   b(9)-delta p0
+   b(10)-IP*1000+L
+   где Ip-признак типа частицы, L-измеренная длина трека в см.
+   Дальше, то же самое повторяется для вторичных треков (по 5-слов
+   для каждой частицы).
+   Принята следующая классификация типов частиц:
+   1-однозначно идентифицированный протон (протон-отдачи)
+   2- 2-х зарядный фрагмент
+   3 -3-х зарядный фрагмент
+   .........................
+   8- восьмизарядный фрагмент
+   9-пи минус мезон
+   10-пи плюс мезон
+   11-неразделенная однозарядная положительная частица (пи+,p,d,t)
+
+   Для работы с Мини-dst создана специальная подпрограмма "redact",
+   которая переводит характеристики вторичных частиц в лаб систему,
+   учитывает поправки на углы измерения вторичных фрагментов,если
+   измеренная длина превышает 30 см, а также нормирует
+   импульсы фрагментов разных заливок как P=3.25*Pизм/P0,
+   где P0-средний импульс на нуклон для данной заливки.
+   После работы подпрограммы "redact", она заполняет одномерный массив
+   с(i) следующим образом.
+   Шапка события (20-слов)
+   c(1)-флаг события (0-все треки измерены, 1-не все треки измерены)
+   c(2)- число заряженных частиц
+   с(3)- Х0
+   с(4)- Y0
+   c(5)- Z0
+   c(6)-Nfrag(z>=2)
+   c(7)-число протонов(протонов-отдачи)
+   с(8)-число 2-х зарядных фрагментов
+   с(9)-число 3-х зарядных фрагментов
+   с(10)-число 4-х зарядных фрагментов
+   с(11)-число 5-и зарядных фрагментов
+   с(12)-число 6-и зарядных фрагментов
+   с(13)-число 7-и зарядных фрагментов
+   с(14)-число 8-и зарядных фрагментов
+   с(15)-число пи+-мезонов
+   с(16)-число пи--мезонов
+   с(17)-число частиц признака 11
+   с(18)-номер пленка
+   с(19)-номер кадра
+   с(20)-число заряженных частиц
+   начиная с с(21) по 6 слов идут характеристики вторичных частиц:
+   c(21)-IP
+   c(22)-L
+   c(23)-px
+   c(24)-py
+   c(25)-pz
+   c(26)-delta p (абсолютная ошибка в измерении импульса)
+   IP- соответствует выше приведенной класификации типа частиц.
+   Обращение к подпрограмме "redact" - call redact.
+   При этом  программа "user" обязательно должна имет следующие
+   common blok и переменные
+      common/bc/b(500),c(1000)/nw/nw,nwc,nk,nkon,nkan,p0(5)
+      nk=5 (количество читаемых файлов DST)
+      nkan=1 (c какого файла начинат читать)
+      nkon=0  (признак конца заказанных файлов DST)
+ 1    continue
+      call redact
+      if(nkon.eq.1) go to 77
+      сюда пишется программа "user"
+      go to 1
+ 77   continue
+      сюда пишется продолжение
+      программы "user" (печать гистограмм, или обработка их)
+      stop
+      end
+   kis57.dst' -DST 57-заливки, измеренный в Ташкенте
+   dub57.dst' -DST 57-заливки, измеренный в Дубне
+   kis61.dst' -DST 61-заливки, измеренный в Ташкенте
+   kis65.dst' -DST 65-заливки, измеренный в Ташкенте
+   dub61.dst' -DST 61-заливки, измеренный в Дубне
+   Нумерация каналов в п/п "redact"соответствует выше приведенной 
+   последовательности файлов DST.
