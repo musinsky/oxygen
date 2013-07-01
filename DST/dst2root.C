@@ -1,29 +1,29 @@
-// -*- mode: c++ -*-
-// @(#) 13 Sep 2005
+// Jan Musinsky
+// 13/09/2005 (01/07/2013)
 
 void dst2root()
 {
-  // for reading integer from binary
+  // for reading integer from binary DST
   union dst_integer {
     Int_t value;
     char buffer[4]; // 4 bytes
   } my_integer;
-  
-  // for reading float from binary
+
+  // for reading float from binary DST
   union dst_float {
     Float_t value;
     char buffer[4]; // 4 bytes
   } my_float;
-  
+
   // input
   const UShort_t nfiles = 5;
-  Text_t *fnames[nfiles] = {"DUB57.DST", "DUB61.DST", "KIS57.DST",
-			    "KIS61.DST", "KIS65.DST"};
+  TString fnames[nfiles] = {"DUB57.DST", "DUB61OK.DST",
+                            "KIS57.DST", "KIS61.DST", "KIS65.DST"};
   ifstream fin;
-  
+
   // output
-  TFile fout("oxygen_DST.root","RECREATE");
-  TTree *oxy_DST = new TTree("oxy_DST","Oxygen DST");
+  TFile fout("oxygen_DST.root", "RECREATE");
+  TTree *oxy_DST = new TTree("oxy_DST", "Oxygen DST");
   const UShort_t MAX_TRACK = 50;
   Int_t   ntracks;
   Int_t   flag[MAX_TRACK];
@@ -39,59 +39,67 @@ void dst2root()
   oxy_DST->Branch("px",px,"px[ntracks]/F");
   oxy_DST->Branch("py",py,"py[ntracks]/F");
   oxy_DST->Branch("pz",pz,"pz[ntracks]/F");
-  
+
   Int_t nw;
   Float_t b[5+5*MAX_TRACK]; // header info + tracks info
   Int_t total_event = 0;
   Int_t file_event  = 0;
   Float_t pmod, dip, azim;
-  
+
   for (UShort_t f = 0; f < nfiles; f++) { // loop over all files
-    if (gSystem->AccessPathName(fnames[f],kReadPermission)) {
-      printf("File %s can not be opened\n",fnames[f]);
+    if (gSystem->AccessPathName(fnames[f].Data(), kReadPermission)) {
+      Printf("File %s can not be opened", fnames[f].Data());
       continue;
     }
-    fin.open(fnames[f]);
+
+    fin.open(fnames[f].Data());
     file_event = 0;
-    
+
     do { // loop over all events in file
       fin.read(my_integer.buffer,4);
       if (!fin.good()) break;
+
       nw = my_integer.value;
       ntracks = (nw-5)/5;
       if (nw%5 != 0 || ntracks >= MAX_TRACK) {
-	printf("!!! Problem with reading DST !!!\n");
-	return;
+        Printf("Problem with reading DST");
+        return;
       }
+
       for (Int_t i = 0; i < nw; i++) {
-	fin.read(my_float.buffer,4);
-	b[i] = my_float.value;
+        fin.read(my_float.buffer,4);
+        b[i] = my_float.value;
       }
       file_event++;
-      
+
       for (Int_t j = 0; j < ntracks; j++) {
-	flag[j]   = b[9+5*j]/1000;
-	length[j] = b[9+5*j]-1000*flag[j];
-	deltap[j] = b[8+5*j];
-	pmod      = b[5+5*j];
-	dip       = b[6+5*j];
-	azim      = b[7+5*j];
-	px[j]     = pmod*TMath::Cos(dip)*TMath::Cos(azim);
-	py[j]     = pmod*TMath::Cos(dip)*TMath::Sin(azim);
-	pz[j]     = pmod*TMath::Sin(dip);
-	if (j == 0) { // primary track (beam)
-	  px[j] = -px[j];
-	  py[j] = -py[j];
-	  pz[j] = -pz[j];
-	}
+        flag[j]   = b[9+5*j]/1000;
+        length[j] = b[9+5*j]-1000*flag[j];
+        deltap[j] = b[8+5*j];
+        pmod      = b[5+5*j];
+        dip       = b[6+5*j];
+        azim      = b[7+5*j];
+        px[j]     = pmod*TMath::Cos(dip)*TMath::Cos(azim);
+        py[j]     = pmod*TMath::Cos(dip)*TMath::Sin(azim);
+        pz[j]     = pmod*TMath::Sin(dip);
+        if (j == 0) { // primary track (beam)
+          px[j] = -px[j];
+          py[j] = -py[j];
+          pz[j] = -pz[j];
+        }
       }
+
       oxy_DST->Fill();
-    }
-    while (1);
-    fin.close(); fin.clear();
+    } while (1);
+
+    fin.close();
+    fin.clear();
+
     total_event += file_event;
-    printf("in file %s number of events = %d\n",fnames[f],file_event);
+    Printf("in file %s number of events = %d", fnames[f].Data(), file_event);
   }
-  oxy_DST->Write(); fout.Close();
-  printf("total number of events = %d\n",total_event);
+
+  oxy_DST->Write();
+  fout.Close();
+  Printf("total number of events = %d", total_event);
 }

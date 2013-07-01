@@ -1,5 +1,5 @@
 // Jan Musinsky
-// 12/09/2005 (28/06/2013)
+// 12/09/2005 (01/07/2013)
 
 void dst2convert(Bool_t ascii = kTRUE)
 {
@@ -76,5 +76,5 @@ void dst2convert(Bool_t ascii = kTRUE)
     Printf("in file %s number of events = %d", fnames[f].Data(), file_event);
   }
 
-  Printf("total number of events = %d\n",total_event);
+  Printf("total number of events = %d", total_event);
 }
