@@ -9,8 +9,11 @@ dst2root.C      prevadza bin DST subory do root (tree) suborov
 dst2for.C       prevadza bin DST subory do FORTRAN binary (fbin) suborov
 
 redact.f        opravy na hlbynne uhly a pod. z FORTRAN binary (fbin) suborov
+                a prevedie na ascii subor
 
-dst2for.C => redact => oxygen_DST.asc
+oxygen_DST.C    vytvori z ascii suboru root (tree) subor
+
+dst2for.C => (*.fbin) redact => (oxygen_DST.asc) oxygen_DST.C => oxygen_DST.root
 
 ------------------------------------------------------------
 
