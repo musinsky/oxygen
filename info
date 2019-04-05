@@ -1,3 +1,21 @@
+# robenie "poriadkov" 05.04.2019
+- zo suboru free2.tar.gz (15.12.2013) vsetko relevantne pre oxygen je spakovane
+do oxygen_2003-2010.tar.xz (05.04.2019), pomazane duplicitne subory, ale inak
+su tam absolutne vsetky subory
+
+- oxygen_2003-2010.tar.xz oproti git repository ma navyse len nepotrebne subory,
+niektore *.ps, *.root (vygenerovane makrami) a "nekorektne" *.bin DST subory
+
+- oxygen_2003-2010.tar.xz a git repository maju absolutne identicke subory,
+okrem suborov v DST directory, kde niektore povodne subory su mierne upravene
+a premenovane. Povodne subory vsak boli commitnute, takze su v historii
+
+- summarum => v git repository je absolutne vsetko. V podstate aj vytvorenie
+oxygen_2003-2010.tar.xz bolo zbytocne
+
+
+
+# povodne info subor z 27.10.2003
 - LednicCorrel
         Makefile -> lednic.exe
         v root-e  auto_lednic.C -> led_ZR=X.XX
