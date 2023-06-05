@@ -1,3 +1,22 @@
+Jan Musinsky notes (Jun 5, 2023)
+
+Pre konzistenciu informacia ohladom "nekorektnych" *.bin DST suborov, resp.
+"The old files *.bin (transported directly from Dubna) deleted" (Urban notes).
+
+Tieto subory sa v repository NENACHADZAJU:
+# dub57.bin: 495376 bytes
+SHA256 (dub57.bin) = 86c2e274c7873e6085ea6f8b590485622f19d04d93917227735677c0f8ce241d
+# dub61.bin: 182376 bytes
+SHA256 (dub61.bin) = f2f4431804d6d5ccebd2a533c1d3c8e9c033853f5835f7e2ce16f9a7e7f1db08
+# kis57.bin: 281368 bytes
+SHA256 (kis57.bin) = a4e06d51ee26e1dcd4763459fc05e3ff5125fac754386b54731bd1074c096503
+# kis61.bin: 455652 bytes
+SHA256 (kis61.bin) = 737706faa449f389f792fab657d3a829f29d30f89226171fe337b3f300ebe1d2
+# kis65.bin: 256336 bytes
+SHA256 (kis65.bin) = 464be7f0b8c91d631f5ddf216da17298f54268b539dfd4f331f489c4980ab036
+
+------------------------------------------------------------
+
 Jan Musinsky notes (Jul 2013)
 
 *.DST          finalne DST subory, ktore poslal Olimov Urbanovi 26.02.2004
@@ -20,11 +39,11 @@ dst2for.C => (*.fbin) redact => (oxygen_DST.asc) oxygen_DST.C => oxygen_DST.root
 Jozef Urban notes (April 6, 2004)
 The old files *.bin (transported directly from Dubna) deleted.
 
-The new *.bin files (held in /home/martinov/O16DATA/PEREKOD/DST2ASCII, 
-farma.science.upjs.sk) produced from /home/martinov/O16DATA/NOARCHIV/*.DST 
-by /home/martinov/O16DATA/PEREKOD/DST2ASCII/DST2FOR.C are to be used. 
-The /home/martinov/O16DATA/NOARCHIV/*.DST were sent to me by Kosim Olimov, 
-on February 26, 2004.  
+The new *.bin files (held in /home/martinov/O16DATA/PEREKOD/DST2ASCII,
+farma.science.upjs.sk) produced from /home/martinov/O16DATA/NOARCHIV/*.DST
+by /home/martinov/O16DATA/PEREKOD/DST2ASCII/DST2FOR.C are to be used.
+The /home/martinov/O16DATA/NOARCHIV/*.DST were sent to me by Kosim Olimov,
+on February 26, 2004.
 For consistency the new *.bin files on April 6, 2004 moved to:
 /home/martinov/O16DATA, farma.science.upjs.sk.
 
@@ -33,7 +52,7 @@ For consistency the new *.bin files on April 6, 2004 moved to:
 Jozef Urban notes
                    O16 + p    DST
 
- 0  nw  - integer number of data words 
+ 0  nw  - integer number of data words
  1  Real  10000*Nroll + Nframe*10
  2  Real  100*ncharged + nneg*10 + secintflag
  3  Real  x vertex
@@ -181,5 +200,5 @@ Jozef Urban notes
    kis61.dst' -DST 61-заливки, измеренный в Ташкенте
    kis65.dst' -DST 65-заливки, измеренный в Ташкенте
    dub61.dst' -DST 61-заливки, измеренный в Дубне
-   Нумерация каналов в п/п "redact"соответствует выше приведенной 
+   Нумерация каналов в п/п "redact"соответствует выше приведенной
    последовательности файлов DST.
