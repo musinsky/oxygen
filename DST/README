@@ -1,3 +1,22 @@
+Jan Musinsky notes (Jul 2013)
+
+*.DST           finalne DST subory, ktore poslal Olimov Urbanovi 26.02.2004
+
+dst2read.C      cita a vypisuje kazdu hodnotu z bin DST suboru
+dst2bin.C       prevadza subor bin DST do bin
+dst2convert.C   prevadza bin DST subory do ascci (alebo bin) suborov
+dst2root.C      prevadza bin DST subory do root (tree) suborov
+dst2for.C       prevadza bin DST subory do FORTRAN binary (fbin) suborov
+
+redact.f        opravy na hlbynne uhly a pod. z FORTRAN binary (fbin) suborov
+                a prevedie na ascii subor
+
+oxygen_DST.C    vytvori z ascii suboru root (tree) subor
+
+dst2for.C => (*.fbin) redact => (oxygen_DST.asc) oxygen_DST.C => oxygen_DST.root
+
+------------------------------------------------------------
+
 Jan Musinsky notes (Jun 5, 2023)
 
 Pre konzistenciu informacia ohladom "nekorektnych" *.bin DST suborov, resp.
@@ -14,25 +33,6 @@ SHA256 (kis57.bin) = a4e06d51ee26e1dcd4763459fc05e3ff5125fac754386b54731bd1074c0
 SHA256 (kis61.bin) = 737706faa449f389f792fab657d3a829f29d30f89226171fe337b3f300ebe1d2
 # kis65.bin: 256336 bytes
 SHA256 (kis65.bin) = 464be7f0b8c91d631f5ddf216da17298f54268b539dfd4f331f489c4980ab036
-
-------------------------------------------------------------
-
-Jan Musinsky notes (Jul 2013)
-
-*.DST          finalne DST subory, ktore poslal Olimov Urbanovi 26.02.2004
-
-dst2read.C      cita a vypisuje kazdu hodnotu z bin DST suboru
-dst2bin.C       prevadza subor bin DST do bin
-dst2convert.C   prevadza bin DST subory do ascci (alebo bin) suborov
-dst2root.C      prevadza bin DST subory do root (tree) suborov
-dst2for.C       prevadza bin DST subory do FORTRAN binary (fbin) suborov
-
-redact.f        opravy na hlbynne uhly a pod. z FORTRAN binary (fbin) suborov
-                a prevedie na ascii subor
-
-oxygen_DST.C    vytvori z ascii suboru root (tree) subor
-
-dst2for.C => (*.fbin) redact => (oxygen_DST.asc) oxygen_DST.C => oxygen_DST.root
 
 ------------------------------------------------------------
 
