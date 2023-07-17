@@ -1,0 +1,84 @@
+--------------------------------------------------------------------------------
+Date:    Mon, 23 Feb 2004 09:33:06 +0100
+From:    Jozef Urban <urban@upjs.sk>
+To:      Olimov Kosim <olimov@uzsci.net>
+Subject: Re: 16O p dlina vs mom
+
+Dorogoj Kosim!
+Esli by DST bylo plokh prochteno, to eto by otrazilos' i na drugikh vtorychnykh
+sledakh. No u nikh dliny raspredeleny rozumno. Vsja nepalatka svjazana s trekami
+s flagom: 10 i 11. Podozritel'no, chto u etikh trekov flag dvukhmestnyj nomer! U
+ostal'nykh, odnomestnykh flagov takogo povedenia ne vidat'! Raspakovka slova
+"I*100+L, I-priznak, L-izmerennaja dlina" sdelana odinakovo dlja vsekh sledov.
+
+Dlja nagladjadnosti sleduet razpechatka 20-i sledov s flagom(priznak) 10 ili 11
+iz obshchej DST.
+pervoe chislo : b(1) upakovannye nom. plenki i kadra,
+vtoroe chislo : znachenie so mnoj raspakovannogo priznaka (flag),
+tretee chislo :   ---   ""    ----        -nnoj  dliny,
+chetvertoe    : znachenie prjamo iz DST "I*1000+L, I priznak, L dlina".
+
+b(1)=   1062000. iflag=  11 alength=   40. I*1000+L=   11040.
+b(1)=   1062000. iflag=  11 alength=   40. I*1000+L=   11040.
+b(1)=   1066000. iflag=  10 alength=   0.  I*1000+L=   10000.
+b(1)=   1066000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1066000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1066000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1066000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1066000. iflag=  11 alength=   70. I*1000+L=   11070.
+b(1)=   1066000. iflag=  11 alength=   60. I*1000+L=   11060.
+b(1)=   1066000. iflag=  11 alength=   10. I*1000+L=   11010.
+b(1)=   1063000. iflag=  11 alength=   30. I*1000+L=   11030.
+b(1)=   1063000. iflag=  11 alength=   40. I*1000+L=   11040.
+b(1)=   1060000. iflag=  10 alength=   10. I*1000+L=   10010.
+b(1)=   1060000. iflag=  11 alength=   40. I*1000+L=   11040.
+b(1)=   1060000. iflag=  11 alength=   40. I*1000+L=   11040.
+b(1)=   1060000. iflag=  11 alength=   0.  I*1000+L=   11000.
+b(1)=   1060000. iflag=  10 alength=   60. I*1000+L=   10060.
+b(1)=   1060000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1060000. iflag=  11 alength=   50. I*1000+L=   11050.
+b(1)=   1060000. iflag=  11 alength=   60. I*1000+L=   11060.
+
+Mozhete tozhe samoe raspechatat' u Vas? Mozhet byt', oshibka proizoshla pri
+podgotovke ili perepisanii DST? Poetomu khotelos' by videt' iskhodnye dannye.
+Chto kasaetsja raspredelania impul'sov to vse vygladit normal'no i razumno.
+
+
+Olimov Kosim wrote:
+
+>Dorogoy Jozif.
+>U nas dlini vsekh fragmentov I chjastic,
+>Po experimentu normalnie I ne kratni k 10.
+>Mojet bit' ne smogli normal'no prochest DST.
+
+--------------------------------------------------------------------------------
+Date:    Fri, 27 Feb 2004 09:04:40 +0500
+From:    Olimov Kosim <olimov@uzsci.net>
+To:      Jozef Urban <urban@upjs.sk>
+Subject: RE: dannye O16
+
+Privet dorogoy Jozef.
+Fayli chitayutsya sleduyushim obrazom:
+Read(ik,end=konec)nw,(b(i),i=1,nw)
+Zdes' nw-kolichestvo slov;
+Format takoy:
+Shapka sobitiya:
+B(1)=Npl*10000+Nkadr*10+Nflag (Nflag=0, esli vse treki izmereni, inache Nflag=1)
+B(2)=top (ne vajno)
+B(3)=X0
+B(4)=Y0
+B(5)=Z0
+________________________________
+B(6)=P0
+B(7)=alfa0
+B(8)=bettao
+B(9)=deltaP
+B(10)=IPR*1000+L(sm)
+________________________________
+Dalee takom je poryadke kak u B(6)-B(10) dlya vtorichnikh
+Chastic I fragmentov.
+
+Ya davno Viktoru Viktorovichu otpravlyal I programmu Redact.for, I kak
+polzovatsya etoy programmoy, I v kakoy Posledovatelnosti I v kakom direktorii
+doljni zapisat' DST Fayli. Vsego khoroshego. Kosim.
+--------------------------------------------------------------------------------
