@@ -1,3 +1,66 @@
+Jan Musinsky notes (Sep 2023)
+
+Informacia ohladom "nekorektnych" (old, wrong) *.bin DST suborov, resp. "The old
+files *.bin (transported directly from Dubna) deleted" (see Urban notes).
+
+Tieto old, wrong subory sa v repository NENACHADZAJU:
+# dub57.bin: 495376 bytes
+SHA256 (dub57.bin) = 86c2e274c7873e6085ea6f8b590485622f19d04d93917227735677c0f8ce241d
+# dub61.bin: 182376 bytes
+SHA256 (dub61.bin) = f2f4431804d6d5ccebd2a533c1d3c8e9c033853f5835f7e2ce16f9a7e7f1db08
+# kis57.bin: 281368 bytes
+SHA256 (kis57.bin) = a4e06d51ee26e1dcd4763459fc05e3ff5125fac754386b54731bd1074c096503
+# kis61.bin: 455652 bytes
+SHA256 (kis61.bin) = 737706faa449f389f792fab657d3a829f29d30f89226171fe337b3f300ebe1d2
+# kis65.bin: 256336 bytes
+SHA256 (kis65.bin) = 464be7f0b8c91d631f5ddf216da17298f54268b539dfd4f331f489c4980ab036
+
+$ od -t f4 -j8 -N120 -w20 dub57.bin   # old, wrong file
+0000010          800100             400          -2.647          -3.705          -16.77
+0000034            38.6         -0.0119           3.172           1.887            8033
+0000060          0.8881         -0.0916          0.8181          0.0216            1027
+0000104            2.75         -0.0131          0.0802           0.037           11060
+0000130           33.76          0.0136          0.0305            0.71            6056
+0000154           1.666          0.3343           6.133          0.0253           11040
+0000200
+
+$ od -t f4 -j4 -N120 -w20 DUB57.DST   # final, ok file
+0000004          800110             400         -2.6466         -3.7047        -16.7682
+0000030         38.6032         -0.0119          3.1718          1.8873        8032.832
+0000054          0.8881         -0.0916          0.8181          0.0216        1026.865
+0000100          2.7499         -0.0131          0.0802           0.037       11056.691
+0000124         33.7605          0.0136          0.0305            0.71       6056.3594
+0000150          1.6657          0.3343          6.1325          0.0253       11044.941
+0000174
+
+# dub57.bin
+Old, wrong binary file. Subor "from Dubna" vytvoreny fortranom (UNFORMATTED) a
+teda prve 4 bytes (int) obsahuje fortran record marker + dalsie 4 bytes (int)
+slovo nw + dalsie 4*nw bytes (float) samotna informacia.
+
+Problem je v kazdom 10, 15, 20, ... slove, kde by malo byt zakodovane ako real
+cislo: flag*1000 + length (measured length in cm), ale v skutocnosti je to int
+cislo zapisane ako real.
+
+# DUB57.DST
+Final, ok binary file. Subor, ktory poslal Kosim Olimov Urbanovi bol
+pravdepodobne este pretransformovany pomocou DST2FOR.C, kedze prve 4 bytes (int)
+neobsahuju fortran record marker, ale hned 4 bytes (int) slovo nw. Original
+subor(y), ktore poslal Kosim Olimov Urbanovi uz asi nie su ?!
+
+--------------------------------------------------------------------------------
+Jozef Urban notes (April 6, 2004)
+The old files *.bin (transported directly from Dubna) deleted.
+
+The new *.bin files (held in /home/martinov/O16DATA/PEREKOD/DST2ASCII,
+farma.science.upjs.sk) produced from /home/martinov/O16DATA/NOARCHIV/*.DST by
+/home/martinov/O16DATA/PEREKOD/DST2ASCII/DST2FOR.C are to be used. The
+/home/martinov/O16DATA/NOARCHIV/*.DST were sent to me by Kosim Olimov, on
+February 26, 2004.
+
+For consistency the new *.bin files on April 6, 2004 moved to:
+/home/martinov/O16DATA, farma.science.upjs.sk.
+
 --------------------------------------------------------------------------------
 Date:    Mon, 23 Feb 2004 09:33:06 +0100
 From:    Jozef Urban <urban@upjs.sk>
